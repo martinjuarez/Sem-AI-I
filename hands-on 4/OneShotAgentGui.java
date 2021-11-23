@@ -6,14 +6,13 @@ import javax.swing.*;
 
 public class OneShotAgentGui extends JFrame {
 
+    private OneShotAgent myAgent;
     private JTextField xField;
-    public String equis;
-    public OneShotAgent myAgent;
+    public double equis;
 
     public OneShotAgentGui(OneShotAgent a) {
-        super(a.getLocalName());
         myAgent = a;
-        
+
         JPanel p = new JPanel();
         p.setLayout(new GridLayout(2, 2));
         p.add(new JLabel("X:"));
@@ -25,19 +24,13 @@ public class OneShotAgentGui extends JFrame {
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 try {
-                    equis = xField.getText().trim();
-                    myAgent.calcular(Integer.parseInt(equis));
+                    equis = Double.parseDouble(xField.getText());
+                    myAgent.inicializar();
                     xField.setText("");
                 }
                 catch (Exception e) {
                     JOptionPane.showMessageDialog(OneShotAgentGui.this, "Invalid values. "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); 
                 }
-                
-                /*
-                equis = xField.getText().trim();
-                myAgent.calcular(Integer.parseInt(equis));
-                xField.setText("");
-                */
             }
         });
         
@@ -49,9 +42,8 @@ public class OneShotAgentGui extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				myAgent.doDelete();
 			}
-		} );
-        
-        setResizable(false);
+		} );	
+		setResizable(false);
     }
 
     public void showGui() {
